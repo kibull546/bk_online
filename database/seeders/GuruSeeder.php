@@ -15,10 +15,13 @@ class GuruSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Guru BK',
-            'email' => 'guru@example.com',
-            'role' => 'guru',
-        ]);
+        User::updateOrCreate(
+            ['email' => 'guru@example.com'],
+            [
+                'name' => 'Guru BK',
+                'role' => 'guru',
+                'password' => bcrypt('password'),
+            ]
+        );
     }
 }

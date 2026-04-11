@@ -15,10 +15,13 @@ class MuridSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Murid Contoh',
-            'email' => 'murid@example.com',
-            'role' => 'murid',
-        ]);
+        User::updateOrCreate(
+            ['email' => 'murid@example.com'],
+            [
+                'name' => 'Murid Contoh',
+                'role' => 'murid',
+                'password' => bcrypt('password'),
+            ]
+        );
     }
 }
