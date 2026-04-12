@@ -3,94 +3,94 @@
 <html>
 
 <head>
-    <title>BK Online</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!DOCTYPE html>
+	<title>BK Online</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        
-        <style>
-            body {
-                background: #f1f4f7;
-            }
 
-            /* NAVBAR */
-            .navbar-custom {
-                background: #34495e;
-            }
+    <style>
+        body {
+            background: #f1f4f7;
+        }
 
-            /* HERO */
-            .hero-title {
-                font-size: 40px;
-            }
+        /* NAVBAR */
+        .navbar-custom {
+            background: #34495e;
+        }
 
-            /* BUTTON */
-            .btn-main {
-                background: #5d6d7e;
-                color: white;
-                border-radius: 10px;
-                padding: 10px 28px;
-                border: none;
-            }
+        /* HERO */
+        .hero-title {
+            font-size: 40px;
+        }
 
-            .btn-main:hover {
-                background: #34495e;
-                color: white;
-            }
+        /* BUTTON */
+        .btn-main {
+            background: #5d6d7e;
+            color: white;
+            border-radius: 10px;
+            padding: 10px 28px;
+            border: none;
+        }
 
-            .btn-soft-blue {
-                background: #85c1e9;
-                color: white;
-                border-radius: 10px;
-                border: none;
-            }
+        .btn-main:hover {
+            background: #34495e;
+            color: white;
+        }
 
-            .btn-soft-blue:hover {
-                background: #5dade2;
-            }
+        .btn-soft-blue {
+            background: #85c1e9;
+            color: white;
+            border-radius: 10px;
+            border: none;
+        }
 
-            .btn-soft-green {
-                background: #82e0aa;
-                color: white;
-                border-radius: 10px;
-                border: none;
-            }
+        .btn-soft-blue:hover {
+            background: #5dade2;
+        }
 
-            .btn-soft-green:hover {
-                background: #58d68d;
-            }
+        .btn-soft-green {
+            background: #82e0aa;
+            color: white;
+            border-radius: 10px;
+            border: none;
+        }
 
-            .btn-soft-orange {
-                background: #f8c471;
-                border-radius: 10px;
-                border: none;
-            }
+        .btn-soft-green:hover {
+            background: #58d68d;
+        }
 
-            .btn-soft-orange:hover {
-                background: #f5b041;
-            }
+        .btn-soft-orange {
+            background: #f8c471;
+            border-radius: 10px;
+            border: none;
+        }
 
-            /* CARD */
-            .card-custom {
-                border-radius: 18px;
-                transition: 0.25s;
-            }
+        .btn-soft-orange:hover {
+            background: #f5b041;
+        }
 
-            .card-custom:hover {
-                transform: translateY(-6px);
-            }
+        /* CARD */
+        .card-custom {
+            border-radius: 18px;
+            transition: 0.25s;
+        }
 
-            footer {
-                background: #34495e;
-                color: white;
-            }
-        </style>
-        
+        .card-custom:hover {
+            transform: translateY(-6px);
+        }
 
-    </head>
+        footer {
+            background: #34495e;
+            color: white;
+        }
+    </style>
+
+
+</head>
 
 <body>
 
-    
+
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
         <div class="container">
@@ -120,7 +120,7 @@
             </div>
 
             <div class="col-md-6 text-center">
-                <img src="/images/guru_islam.png" width="340">
+                <img src="/images/guru_islam.png" class="img-fluid" style="max-width:340px; width:100%; height:auto;" alt="Guru BK">
             </div>
 
         </div>
@@ -136,7 +136,7 @@
         <div class="row g-4">
 
             <!-- CURHAT -->
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="card card-custom shadow border-0 text-center p-4 h-100 d-flex flex-column">
 
                     <h5 class="fw-bold">Curhat Anonim</h5>
@@ -154,7 +154,7 @@
             </div>
 
             <!-- GURU -->
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="card card-custom shadow border-0 text-center p-4 h-100 d-flex flex-column">
 
                     <h5 class="fw-bold">Konsultasi Guru BK</h5>
@@ -172,7 +172,7 @@
             </div>
 
             <!-- STATUS -->
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="card card-custom shadow border-0 text-center p-4 h-100 d-flex flex-column">
 
                     <h5 class="fw-bold">Cek Status Curhat</h5>
@@ -199,7 +199,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 
 </body>
 
