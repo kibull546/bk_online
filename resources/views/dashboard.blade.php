@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Guru BK</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table-responsive { overflow-x: auto; }
+        @media (max-width: 768px) {
+            .table { font-size: 0.85rem; }
+            .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.7rem; }
+        }
+    </style>
 </head>
 <body class="bg-light">
 
@@ -37,8 +46,8 @@
     </form>
 
     <!-- Statistik -->
-    <div class="row mb-4">
-        <div class="col-md-4">
+    <div class="row mb-4 g-3">
+        <div class="col-12 col-md-4">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
                     <h5>Total Curhat</h5>
@@ -46,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-12 col-md-4">
             <div class="card bg-success text-white shadow">
                 <div class="card-body">
                     <h5>Sudah Dibalas</h5>
@@ -54,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-12 col-md-4">
             <div class="card bg-warning text-dark shadow">
                 <div class="card-body">
                     <h5>Menunggu</h5>
@@ -66,9 +75,9 @@
 
     <!-- Tabel Curhat -->
     <div class="card shadow border-0">
-        <div class="card-body">
+        <div class="card-body table-responsive">
             <h4 class="mb-4">Daftar Curhat Siswa</h4>
-            <table class="table table-striped align-middle">
+            <table class="table table-striped align-middle table-sm">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>

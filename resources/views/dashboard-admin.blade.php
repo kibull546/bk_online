@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin BK</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Kolom pesan & balasan lebih nyaman */
-        .col-pesan {
-            min-width: 350px;  /* jangan terlalu sempit */
-            max-width: 500px;  /* jangan sampe penuh ke ujung */
-            word-break: break-word;
-        }
-        .col-balasan {
-            min-width: 250px;
-            max-width: 400px;
-            word-break: break-word;
+        .table-responsive { overflow-x: auto; }
+        .col-pesan { word-break: break-word; }
+        .col-balasan { word-break: break-word; }
+        @media (max-width: 768px) {
+            .table { font-size: 0.8rem; }
+            .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.65rem; }
+            .col-pesan, .col-balasan { max-width: 150px; }
         }
     </style>
 </head>
@@ -43,10 +42,9 @@
 
     <!-- Daftar Curhat Anonim -->
     <div class="card shadow border-0">
-        <div class="card-body">
+        <div class="card-body table-responsive">
             <h4 class="mb-4">Daftar Curhat Anonim</h4>
-
-            <table class="table table-striped align-middle table-bordered">
+            <table class="table table-striped align-middle table-bordered table-sm">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>

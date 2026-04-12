@@ -3,11 +3,11 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin BK</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-<style>
+    <style>
     body {
         background: #f1f4f7;
     }
@@ -32,10 +32,9 @@
 <body>
 
 
-<div class="container mt-5">
-
+<div class="container mt-3 mt-md-5">
     <div class="row justify-content-center">
-        <div class="col-md-5">
+        <div class="col-12 col-sm-10 col-md-6 col-lg-5">
 
             <div class="card shadow p-4">
 
@@ -60,13 +59,14 @@
                         <input type="password" class="form-control" name="password" placeholder="Masukkan password" required>
                     </div>
 
-                    <button type="submit" class="btn btn-login text-white w-100 mt-3">
-                        Login
-                    </button>
-
-                    <a href="/" class="btn btn-secondary w-100 mt-2">
-                        Kembali ke Beranda
-                    </a>
+                    <div class="d-grid gap-2 mt-3">
+                        <button type="submit" class="btn btn-login text-white">
+                            Login
+                        </button>
+                        <a href="/" class="btn btn-secondary">
+                            Kembali ke Beranda
+                        </a>
+                    </div>
 
                 </form>
 

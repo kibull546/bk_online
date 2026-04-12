@@ -2,8 +2,15 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cek Curhat Siswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @media (max-width: 575px) {
+            .navbar-text { font-size: 0.85rem; }
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -28,8 +35,7 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
-
+    <div class="container mt-3 mt-md-4">
         <!-- Info Kode Curhat -->
         <div class="card mb-4 shadow">
             <div class="card-body">
@@ -66,8 +72,12 @@
     </div>
 
     <!-- Tombol kembali ke dashboard -->
-    <div class="text-center mt-4">
-        <a href="/dashboard" class="btn btn-secondary">Kembali ke Dashboard</a>
+    <div class="container mt-4 mb-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                <a href="/dashboard" class="btn btn-secondary w-100">Kembali ke Dashboard</a>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
