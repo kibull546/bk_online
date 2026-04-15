@@ -46,10 +46,6 @@
                             @csrf
 
                             <div class="mb-3">
-                                <div class="mb-3">
-                                    <label class="form-label fw-semibold">Nama (boleh samaran)</label>
-                                    <input type="text" name="nama" class="form-control" placeholder="Masukkan nama kamu">
-                                </div>
                                 <label class="form-label fw-semibold">Masalah Kamu</label>
                                 <textarea name="pesan" class="form-control" rows="4" placeholder="Tulis curhatan kamu..."></textarea>
                             </div>
