@@ -85,7 +85,7 @@
                         <th>Kategori</th>
                         <th>Status</th>
                         <th>Balasan Guru</th>
-                        <th>Aksi</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
