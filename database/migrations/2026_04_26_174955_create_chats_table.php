@@ -12,12 +12,15 @@ return new class extends Migration
     public function up()
 {
     Schema::create('chats', function (Blueprint $table) {
-        $table->id();
-        $table->unsignedBigInteger('user_id'); // siswa
-        $table->unsignedBigInteger('guru_id'); // guru BK
-        $table->text('message');
-        $table->timestamps();
-    });
+    $table->id();
+    $table->unsignedBigInteger('user_id');
+    $table->unsignedBigInteger('guru_id');
+    $table->text('message');
+    $table->string('sender');
+    $table->boolean('deleted_by_siswa')->default(false);
+    $table->boolean('deleted_by_guru')->default(false);
+    $table->timestamps();
+});
 }
 
     /**

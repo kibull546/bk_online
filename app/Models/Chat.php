@@ -10,8 +10,11 @@ class Chat extends Model
         'user_id',
         'guru_id',
         'message',
-        'sender'
+        'sender',
+        'deleted_by_siswa',
+        'deleted_by_guru'
     ];
+
 
     public function user()
     {

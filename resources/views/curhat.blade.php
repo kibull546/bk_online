@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Live Chat BK</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,6 +40,11 @@ body { background:#eef2f7; }
     border-radius:5px;
     margin-left:5px;
 }
+
+.time {
+    font-size:10px;
+    opacity:0.6;
+}
 </style>
 </head>
 
@@ -50,15 +54,22 @@ body { background:#eef2f7; }
 
 <h4 class="text-center">💬 Live Chat BK</h4>
 
-<!-- PILIH SISWA (GURU) -->
 @if(Auth::user()->role == 'guru')
-<select id="student_id" class="form-select mb-3">
-    <option value="">-- Pilih Siswa --</option>
+<select id="student_id" class="form-select mb-2">
+    <option value="">-- Pilih Siswa Berdasarkan Kode --</option>
     @foreach(\App\Models\User::where('role','murid')->get() as $siswa)
-        <option value="{{ $siswa->id }}">{{ $siswa->name }}</option>
+        <option value="{{ $siswa->id }}">
+            {{ $siswa->student_code }}
+        </option>
     @endforeach
 </select>
 @endif
+
+<div class="text-end mb-2">
+    <button class="btn btn-danger btn-sm" onclick="clearAllChat()">
+        Clear Chat (View Ini)
+    </button>
+</div>
 
 <div class="card shadow">
     <div class="card-body" id="chat-box"></div>
@@ -84,6 +95,7 @@ function getStudentId(){
     return el ? el.value : null;
 }
 
+/* ================= REALTIME WA ================= */
 function loadChat(){
 
     let url = '/chat/fetch';
@@ -108,11 +120,14 @@ function loadChat(){
                 ? `<button class="del" onclick="deleteMsg(${chat.id})">x</button>`
                 : '';
 
+            let time = chat.time ?? '';
+
             if(chat.sender === 'siswa'){
                 html += `
                 <div class="right mb-2">
                     <span class="bubble me">
                         ${chat.message}
+                        <div style="font-size:10px; opacity:0.6;">${time}</div>
                         ${delBtn}
                     </span>
                 </div>`;
@@ -121,22 +136,27 @@ function loadChat(){
                 <div class="left mb-2">
                     <span class="bubble other">
                         ${chat.message}
+                        <div style="font-size:10px; opacity:0.6;">${time}</div>
                         ${delBtn}
                     </span>
                 </div>`;
             }
-
         });
 
-        document.getElementById('chat-box').innerHTML =
-            html || '<p class="text-center text-muted">Belum ada chat</p>';
+        let box = document.getElementById('chat-box');
 
-        document.getElementById('chat-box').scrollTop =
-            document.getElementById('chat-box').scrollHeight;
+let isAtBottom = (box.scrollTop + box.clientHeight) >= (box.scrollHeight - 50);
 
+box.innerHTML = html || '<p class="text-center text-muted">Belum ada chat</p>';
+
+// hanya auto scroll kalau user memang di bawah
+if (isAtBottom) {
+    box.scrollTop = box.scrollHeight;
+}
     });
 }
 
+/* ================= SEND ================= */
 document.getElementById('chat-form').addEventListener('submit', function(e){
     e.preventDefault();
 
@@ -150,13 +170,13 @@ document.getElementById('chat-form').addEventListener('submit', function(e){
     fetch('/chat/send', {
         method:'POST',
         body:formData
-    })
-    .then(() => {
+    }).then(() => {
         document.getElementById('message').value='';
         loadChat();
     });
 });
 
+/* ================= DELETE GLOBAL ================= */
 function deleteMsg(id){
 
     if(!confirm('Hapus pesan ini?')) return;
@@ -166,11 +186,25 @@ function deleteMsg(id){
         headers:{
             'X-CSRF-TOKEN': document.querySelector('[name=_token]').value
         }
-    })
-    .then(() => loadChat());
+    }).then(() => loadChat());
 }
 
-setInterval(loadChat, 2000);
+/* ================= CLEAR VIEW ================= */
+function clearAllChat(){
+
+    if(!confirm('Hapus tampilan chat?')) return;
+
+    fetch('/chat/clear-all', {
+        method:'POST',
+        headers:{
+            'X-CSRF-TOKEN': document.querySelector('[name=_token]').value
+        }
+    }).then(() => loadChat());
+}
+
+/* ================= REALTIME LOOP ================= */
+setInterval(loadChat, 1000);
+
 loadChat();
 
 </script>

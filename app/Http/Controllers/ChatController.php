@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\User;
@@ -10,23 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-    // ❌ JANGAN PAKAI __construct middleware (sudah di routes)
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
-    // ======================
-    // HALAMAN CHAT
-    // ======================
     public function index()
     {
         return view('curhat');
     }
 
-    // ======================
-    // SEND CHAT
-    // ======================
+    // SEND
     public function send(Request $request)
     {
         $request->validate([
@@ -35,9 +23,6 @@ class ChatController extends Controller
 
         $user = Auth::user();
 
-        // ======================
-        // SISWA
-        // ======================
         if ($user->role == 'murid') {
 
             $guru = User::where('role', 'guru')->first();
@@ -48,12 +33,8 @@ class ChatController extends Controller
                 'message' => $request->message,
                 'sender' => 'siswa'
             ]);
-        }
 
-        // ======================
-        // GURU
-        // ======================
-        else {
+        } else {
 
             Chat::create([
                 'user_id' => $request->student_id,
@@ -66,9 +47,7 @@ class ChatController extends Controller
         return response()->json(['status' => 'ok']);
     }
 
-    // ======================
-    // FETCH CHAT
-    // ======================
+    // FETCH (FIX TIME WA STYLE)
     public function fetch(Request $request)
     {
         $user = Auth::user();
@@ -76,58 +55,52 @@ class ChatController extends Controller
         if ($user->role == 'murid') {
 
             $chats = Chat::where('user_id', $user->id)
+                ->where('deleted_by_siswa', false)
                 ->orderBy('created_at', 'asc')
                 ->get();
 
         } else {
 
-            if (!$request->student_id) {
-                return response()->json([]);
-            }
-
             $chats = Chat::where('user_id', $request->student_id)
                 ->where('guru_id', $user->id)
+                ->where('deleted_by_guru', false)
                 ->orderBy('created_at', 'asc')
                 ->get();
+        }
+
+        // 🔥 TAMBAH JAM KIRIM FIX
+        foreach ($chats as $c) {
+            $c->time = $c->created_at->format('H:i');
         }
 
         return response()->json($chats);
     }
 
-    // ======================
-    // DELETE CHAT (AMAN + FIX FINAL)
-    // ======================
+    // DELETE 1 PESAN (GLOBAL HILANG)
     public function delete($id)
     {
         $chat = Chat::find($id);
 
-        if (!$chat) {
-            return response()->json(['status' => 'error'], 404);
-        }
+        if (!$chat) return response()->json(['status' => 'error']);
 
+        $chat->delete(); // 🔥 GLOBAL DELETE
+
+        return response()->json(['status' => 'ok']);
+    }
+
+    // CLEAR VIEW ONLY
+    public function clearAll(Request $request)
+    {
         $user = Auth::user();
 
-        // SISWA hanya bisa hapus pesan sendiri
         if ($user->role == 'murid') {
-
-            if ($chat->user_id == $user->id && $chat->sender == 'siswa') {
-                $chat->delete();
-                return response()->json(['status' => 'ok']);
-            }
+            Chat::where('user_id', $user->id)
+                ->update(['deleted_by_siswa' => true]);
+        } else {
+            Chat::where('guru_id', $user->id)
+                ->update(['deleted_by_guru' => true]);
         }
 
-        // GURU hanya bisa hapus pesan sendiri
-        if ($user->role == 'guru') {
-
-            if ($chat->guru_id == $user->id && $chat->sender == 'guru') {
-                $chat->delete();
-                return response()->json(['status' => 'ok']);
-            }
-        }
-
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Tidak diizinkan'
-        ], 403);
+        return response()->json(['status' => 'ok']);
     }
 }

@@ -98,8 +98,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/chat', [ChatController::class, 'index']);
     Route::post('/chat/send', [ChatController::class, 'send']);
     Route::get('/chat/fetch', [ChatController::class, 'fetch']);
+
     Route::delete('/chat/{id}', [ChatController::class, 'delete']);
 
+    Route::post('/chat/clear-all', [ChatController::class, 'clearAll']);
 });
 
 /* ======================
@@ -117,3 +119,5 @@ Route::get('/riwayat-chat', function () {
 
 Route::get('/admin/create-guru', [AdminController::class, 'createGuru']);
 Route::post('/admin/store-guru', [AdminController::class, 'storeGuru']);
+
+Route::post('/chat/clear-all', [ChatController::class, 'clearAll']);
