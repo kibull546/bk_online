@@ -85,7 +85,7 @@
                         <th>Kategori</th>
                         <th>Status</th>
                         <th>Balasan Guru</th>
-                       
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,10 +109,11 @@
                             @endif
                         </td>
                         <td>
+                            <a href="/cek-curhat/{{ $d->kode_unik }}" class="btn btn-info btn-sm">Detail</a>
                             @if(Auth::user()->role == 'admin')
-                                <form action="/hapus/{{ $d->id }}" method="POST">
+                                <form action="/hapus/{{ $d->id }}" method="POST" style="display:inline;">
                                     @csrf
-                                    <button class="btn btn-danger btn-sm w-100 mb-2">Hapus</button>
+                                    <button class="btn btn-danger btn-sm">Hapus</button>
                                 </form>
                             @endif
                         </td>

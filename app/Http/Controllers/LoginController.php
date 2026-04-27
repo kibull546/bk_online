@@ -32,7 +32,7 @@ class LoginController extends Controller
             if(Auth::user()->role == 'admin'){
                 return redirect('/dashboard-admin');
             }else{
-                return redirect('/dashboard');
+                return redirect('/chat');
             }
         }
 

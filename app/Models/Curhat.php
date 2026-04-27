@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Curhat extends Model
 {
-    protected $fillable = [
+   protected $fillable = [
+    'nama',
     'pesan',
+    'balasan',
     'kategori',
-    'kode_unik',
     'status'
 ];
 }

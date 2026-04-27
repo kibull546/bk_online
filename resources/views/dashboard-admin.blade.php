@@ -40,6 +40,15 @@
 
 <div class="container mt-4">
 
+    <!-- Action Buttons -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="/admin/import-students" class="btn btn-primary btn-lg">
+                <i class="bi bi-upload"></i> 📥 Import Siswa dari Excel
+            </a>
+        </div>
+    </div>
+
     <!-- Daftar Curhat Anonim -->
     <div class="card shadow border-0">
         <div class="card-body table-responsive">

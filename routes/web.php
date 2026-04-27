@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CurhatController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LoginAdminController;
+use App\Http\Controllers\StudentLoginController;
+use App\Http\Controllers\StudentImportController;
+use App\Http\Controllers\ChatController;
 use App\Models\Curhat;
 
 /* ======================
@@ -15,29 +18,21 @@ Route::get('/', function () {
 });
 
 /* ======================
+   LOGIN SISWA
+====================== */
+Route::get('/student-login', [StudentLoginController::class, 'showLogin']);
+Route::post('/student-login', [StudentLoginController::class, 'login']);
+Route::get('/forgot-password', [StudentLoginController::class, 'showForgotPassword']);
+Route::post('/reset-password', [StudentLoginController::class, 'resetPassword']);
+Route::get('/student-logout', [StudentLoginController::class, 'logout']);
+
+/* ======================
    CURHAT SISWA
 ====================== */
 Route::get('/curhat', [CurhatController::class, 'index']);
 Route::post('/curhat', [CurhatController::class, 'store']);
 
-/* ======================
-   CEK STATUS DENGAN KODE UNIK
-====================== */
-Route::get('/status-anonim', function () {
-    return view('status-anonim-form');
-});
 
-Route::post('/status-anonim/cek', function (\Illuminate\Http\Request $request) {
-    $data = Curhat::where('kode_unik', $request->kode)->get();
-
-    if ($data->isEmpty()) {
-        return redirect('/status-anonim')->with('error', 'Kode curhat tidak valid');
-    }
-
-    return view('status-anonim', compact('data'));
-});
-
-Route::get('/status-anonim/{kode}', [CurhatController::class, 'statusAnonim']);
 
 /* ======================
    LOGIN GURU
@@ -57,6 +52,8 @@ Route::get('/logout-admin', [LoginAdminController::class, 'logout']);
    DASHBOARD GURU
 ====================== */
 Route::get('/dashboard', [CurhatController::class, 'dashboard']);
+Route::post('/cek-kode', [CurhatController::class, 'cekKode'])->name('cek-kode');
+Route::get('/cek-curhat/{kode_unik}', [CurhatController::class, 'cekKode']);
 Route::post('/balas/{id}', [CurhatController::class, 'balas']);
 
 /* ======================
@@ -71,6 +68,13 @@ Route::get('/dashboard-admin', function () {
     $data = Curhat::latest()->get();
     return view('dashboard-admin', compact('data'));
 });
+
+/* ======================
+   ADMIN - IMPORT SISWA
+====================== */
+Route::get('/admin/import-students', [StudentImportController::class, 'showForm']);
+Route::post('/admin/import-students', [StudentImportController::class, 'import']);
+Route::get('/admin/download-template', [StudentImportController::class, 'downloadTemplate']);
 
 /* ======================
    HAPUS CURHAT
@@ -88,7 +92,24 @@ Route::get('/monitoring', function () {
     return view('monitoring');
 });
 
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/chat', [ChatController::class, 'index']);
+    Route::post('/chat/send', [ChatController::class, 'send']);
+    Route::get('/chat/fetch', [ChatController::class, 'fetch']);
+
+});
+
 /* ======================
-   CEK KODE DARI DASHBOARD
+   GURU LIVE CHAT
 ====================== */
-Route::post('/cek-kode', [CurhatController::class, 'cekKode'])->name('cek-kode');
+Route::get('/guru/chat', [ChatController::class, 'guruIndex'])->middleware('auth');
+Route::get('/guru/chat/{userId}', [ChatController::class, 'guruChat'])->middleware('auth');
+
+Route::get('/chat/{user_id}', [ChatController::class, 'index']);
+
+//riwayat chat
+Route::get('/riwayat-chat', function () {
+    return view('riwayat-chat');
+});
+
