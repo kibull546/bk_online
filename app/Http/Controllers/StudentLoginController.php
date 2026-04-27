@@ -58,29 +58,24 @@ class StudentLoginController extends Controller
         return view('forgot-password');
     }
 
-    public function resetPassword(Request $request)
-    {
-        $request->validate([
-            'student_code' => 'required|string',
-            'phone' => 'required|string',
-        ]);
+   public function resetPassword(Request $request)
+{
+    $request->validate([
+        'student_code' => 'required',
+        'password' => 'required|min:3'
+    ]);
 
-        $user = User::where('student_code', $request->student_code)
-            ->where('phone', $request->phone)
-            ->where('role', 'murid')
-            ->first();
+    $user = \App\Models\User::where('student_code', $request->student_code)->first();
 
-        if (!$user) {
-            return back()->with('error', 'Kode siswa atau nomor telepon tidak sesuai');
-        }
-
-        $newPassword = Str::random(8);
-
-        $user->password = Hash::make($newPassword);
-        $user->save();
-
-        return back()->with('success', "Password baru: $newPassword");
+    if (!$user) {
+        return back()->with('error', 'Kode siswa tidak ditemukan');
     }
+
+    $user->password = bcrypt($request->password);
+    $user->save();
+
+    return back()->with('success', 'Password berhasil diubah');
+}
 
     // ======================
     // LOGOUT
