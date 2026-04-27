@@ -100,16 +100,26 @@ function loadChat() {
             if(chat.sender === 'siswa'){
                 html += `
                 <div class="text-end mb-2">
-                    <span class="badge bg-primary p-2">
-                        ${chat.message}
-                    </span>
+                    <div class="d-inline-block">
+                        <span class="badge bg-primary p-2" style="word-wrap: break-word;">
+                            ${chat.message}
+                        </span>
+                        @if(Auth::check() && Auth::user()->role == 'murid')
+                        <button class="btn btn-sm btn-danger ms-1" onclick="deleteMessage(${chat.id})">🗑</button>
+                        @endif
+                    </div>
                 </div>`;
             } else {
                 html += `
                 <div class="text-start mb-2">
-                    <span class="badge bg-success p-2">
-                        ${chat.message}
-                    </span>
+                    <div class="d-inline-block">
+                        <span class="badge bg-success p-2" style="word-wrap: break-word;">
+                            ${chat.message}
+                        </span>
+                        @if(Auth::check() && Auth::user()->role == 'guru')
+                        <button class="btn btn-sm btn-danger ms-1" onclick="deleteMessage(${chat.id})">🗑</button>
+                        @endif
+                    </div>
                 </div>`;
             }
 
@@ -153,6 +163,28 @@ document.getElementById('chat-form').addEventListener('submit', function(e){
 @if(Auth::check() && Auth::user()->role == 'guru')
 document.getElementById('student_id').addEventListener('change', loadChat);
 @endif
+
+// HAPUS PESAN
+function deleteMessage(chatId) {
+    if (!confirm('Yakin hapus pesan?')) return;
+
+    fetch(`/chat/${chatId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('[name=_token]').value,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'ok') {
+            loadChat();
+        } else {
+            alert(data.error || 'Gagal hapus pesan');
+        }
+    })
+    .catch(err => alert('Terjadi kesalahan'));
+}
 
 // LOAD AWAL
 loadChat();

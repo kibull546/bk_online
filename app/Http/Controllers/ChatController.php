@@ -111,4 +111,32 @@ class ChatController extends Controller
 
         return response()->json($chats);
     }
+
+    // ======================
+    // HAPUS PESAN
+    // ======================
+    public function delete($id)
+    {
+        $chat = Chat::find($id);
+
+        if (!$chat) {
+            return response()->json(['error' => 'Pesan tidak ditemukan'], 404);
+        }
+
+        $user = Auth::user();
+
+        // SISWA: bisa hapus pesan siswa mereka sendiri
+        if ($user->role == 'murid' && $chat->user_id == $user->id && $chat->sender == 'siswa') {
+            $chat->delete();
+            return response()->json(['status' => 'ok']);
+        }
+
+        // GURU: bisa hapus pesan guru mereka sendiri
+        if ($user->role == 'guru' && $chat->guru_id == $user->id && $chat->sender == 'guru') {
+            $chat->delete();
+            return response()->json(['status' => 'ok']);
+        }
+
+        return response()->json(['error' => 'Tidak bisa hapus pesan orang lain'], 403);
+    }
 }

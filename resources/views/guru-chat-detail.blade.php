@@ -89,9 +89,12 @@ function loadChat() {
                 } else {
                     html += `
                     <div class="msg-guru">
-                        <span class="badge">
-                            <strong>Anda:</strong><br>${chat.message}
-                        </span>
+                        <div>
+                            <span class="badge">
+                                <strong>Anda:</strong><br>${chat.message}
+                            </span>
+                            <button class="btn btn-sm btn-danger ms-1" onclick="deleteMessage(${chat.id})">🗑</button>
+                        </div>
                     </div>`;
                 }
             });
@@ -128,6 +131,28 @@ document.getElementById('chat-form').addEventListener('submit', function(e) {
         }
     });
 });
+
+// HAPUS PESAN
+function deleteMessage(chatId) {
+    if (!confirm('Yakin hapus pesan?')) return;
+
+    fetch(`/chat/${chatId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('[name=_token]').value,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'ok') {
+            loadChat();
+        } else {
+            alert(data.error || 'Gagal hapus pesan');
+        }
+    })
+    .catch(err => alert('Terjadi kesalahan'));
+}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

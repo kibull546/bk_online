@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\StudentImportController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\AdminController;
 use App\Models\Curhat;
 
 /* ======================
@@ -97,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/chat', [ChatController::class, 'index']);
     Route::post('/chat/send', [ChatController::class, 'send']);
     Route::get('/chat/fetch', [ChatController::class, 'fetch']);
+    Route::delete('/chat/{id}', [ChatController::class, 'delete']);
 
 });
 
@@ -113,3 +115,5 @@ Route::get('/riwayat-chat', function () {
     return view('riwayat-chat');
 });
 
+Route::get('/admin/create-guru', [AdminController::class, 'createGuru']);
+Route::post('/admin/store-guru', [AdminController::class, 'storeGuru']);

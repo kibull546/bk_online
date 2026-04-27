@@ -32,6 +32,24 @@
             letter-spacing:0.5px;
         }
 
+        .navbar-logo {
+            height: 35px;
+            width: auto;
+            object-fit: contain;
+            margin-right: 12px;
+        }
+
+        .navbar-brand-wrapper {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .navbar-brand-wrapper:hover {
+            color: white;
+        }
+
         /* HERO */
         .hero{
             padding:90px 0;
@@ -135,7 +153,10 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="container">
-        <a class="navbar-brand">BK Online</a>
+        <a href="/" class="navbar-brand-wrapper">
+            <img src="/images/ysft.png" alt="YSFT Logo" class="navbar-logo">
+            <span class="navbar-brand mb-0">BK Online SMK Fatahillah Cileungsi</span>
+        </a>
     </div>
 </nav>
 
@@ -171,39 +192,29 @@
 
     <h3 class="text-center section-title">Fitur Utama</h3>
 
-    <div class="row g-4">
 
-        <div class="col-md-4">
-            <div class="card card-custom p-4 h-100 text-center">
+    <div class="row justify-content-center g-4">
+        <div class="col-12 col-md-5 col-lg-4 d-flex align-items-stretch">
+            <div class="card card-custom p-4 w-100 text-center">
                 <h5 class="fw-bold">Curhat Anonim</h5>
                 <p class="text-muted">Siswa bisa bercerita tanpa identitas untuk kenyamanan maksimal.</p>
                 <a href="/student-login" class="btn btn-soft blue w-100">Buka</a>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card card-custom p-4 h-100 text-center">
+        <div class="col-12 col-md-5 col-lg-4 d-flex align-items-stretch">
+            <div class="card card-custom p-4 w-100 text-center">
                 <h5 class="fw-bold">Konsultasi Guru BK</h5>
                 <p class="text-muted">Guru memberikan solusi langsung secara real-time.</p>
                 <a href="/konsultasi" class="btn btn-soft green w-100">Buka</a>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card card-custom p-4 h-100 text-center">
-                <h5 class="fw-bold">Riwayat Chat</h5>
-                <p class="text-muted">Lihat semua percakapan dengan tampilan rapi dan modern.</p>
-                <a href="/riwayat-chat" class="btn btn-soft orange w-100">Buka</a>
-            </div>
-        </div>
-
     </div>
 
 </section>
 
 <!-- FOOTER -->
 <footer class="text-center p-3">
-    © 2026 BK Online • Built with modern UI
+    © 2026 BK Online • SMK FATAHILLAH
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
